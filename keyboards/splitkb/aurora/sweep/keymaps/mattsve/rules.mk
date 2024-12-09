@@ -1,1 +1,1 @@
-COVERT_TO=liatris
+CONVERT_TO=liatris
