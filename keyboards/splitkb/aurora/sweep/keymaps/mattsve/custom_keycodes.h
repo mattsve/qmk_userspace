@@ -1,3 +1,5 @@
+#pragma once
+
 enum layers {
     _DEF,
     _SWE,
@@ -7,8 +9,8 @@ enum layers {
 };
 
 enum my_keycodes {
-    MY_TILD = SAFE_RANGE,    
-    MY_SLSH,
+    MY_TILD = SAFE_RANGE,
+    US_SLSH,
     MY_CIRC,
     TG_SWE,
     LT_DEF,
@@ -20,4 +22,4 @@ enum my_keycodes {
 #define TH_SCLN LT(0, KC_A)
 #define TH_MINS LT(0, KC_B)
 #define TH_COMM LT(0, KC_C)
-#define TH_SLSH LT(0, KC_D)
+#define TH_SLSH LT(0, US_SLSH)

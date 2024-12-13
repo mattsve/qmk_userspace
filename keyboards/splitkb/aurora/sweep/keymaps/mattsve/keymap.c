@@ -6,16 +6,26 @@
 #include "sendstring_swedish.h"
 #include "custom_keycodes.h"
 #include "g/keymap_combo.h"
+#include "key_overrides.h"
+#include "features/custom_keys.h"
 
 void keyboard_pre_init_user(void) {
     gpio_set_pin_output(24);
     gpio_write_pin_high(24);
 }
 
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  //debug_mouse=true;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_DEF] = LAYOUT(SE_Q, SE_W, SE_F, SE_P, SE_B,   SE_J, SE_L, SE_U,    SE_Y,    TH_SCLN,
-                    SE_A, SE_R, SE_S, SE_T, SE_G,   SE_M, SE_N, SE_E,    SE_I,    SE_O,
-                    SE_Z, SE_X, SE_C, SE_D, SE_V,   SE_K, SE_H, TH_COMM, TH_MINS, TH_SLSH,
+    [_DEF] = LAYOUT(SE_Q, SE_W, SE_F, SE_P, SE_B,   SE_J, SE_L, SE_U,    SE_Y,   TH_SCLN,
+                    SE_A, SE_R, SE_S, SE_T, SE_G,   SE_M, SE_N, SE_E,    SE_I,   SE_O,
+                    SE_Z, SE_X, SE_C, SE_D, SE_V,   SE_K, SE_H, SE_COMM, SE_DOT, TH_SLSH,
                     KC_SPC, OSM(MOD_LSFT),          OSM(MOD_RCTL), LT_SYM),
     [_SWE] = LAYOUT(_______, _______, _______, _______, _______,   _______, _______, _______, _______, SE_ARNG,
                     _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
@@ -40,11 +50,17 @@ void change_layer(uint16_t layer) {
     layer_and(1 << _DEF | 1 << _SWE | 1 << layer);
 }
 
+const custom_key_t custom_keys[] = {
+    {US_SLSH, SE_SLSH, SE_QUES}
+};
+uint8_t NUM_CUSTOM_KEYS = sizeof(custom_keys) / sizeof(custom_key_t);
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+    if (!process_custom_keys(keycode, record)) return false;
+    switch (keycode) {            
         case MY_TILD:
             if (record->event.pressed) SEND_STRING("~");
-            return false;
+            return false;        
         case TH_SCLN:
             if (record->tap.count && record->event.pressed) tap_code16(SE_SCLN);
             else if (record->event.pressed) tap_code16(SE_COLN);
@@ -58,10 +74,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else if (record->event.pressed) tap_code16(SE_DOT);
             return false;        
         case TH_SLSH:
-            if (record->tap.count && record->event.pressed) tap_code16(SE_SLSH);
-            else if (record->event.pressed) tap_code16(SE_PIPE);
-            return false;                    
-            return true;
+            if (record->tap.count && record->event.pressed) return true;
+            else if (record->event.pressed) {
+                tap_code16(SE_PIPE);
+                return false;
+            }
+            return true;            
         case MY_CIRC:
             if (record->event.pressed) SEND_STRING("^");
             return false;
