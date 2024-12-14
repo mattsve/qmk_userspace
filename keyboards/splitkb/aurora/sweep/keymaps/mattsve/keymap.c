@@ -6,7 +6,6 @@
 #include "sendstring_swedish.h"
 #include "custom_keycodes.h"
 #include "g/keymap_combo.h"
-#include "key_overrides.h"
 #include "features/custom_keys.h"
 
 void keyboard_pre_init_user(void) {
@@ -21,8 +20,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_SPC, OSM(MOD_LSFT),          OSM(MOD_RCTL), LT_SYM),
     [_SWE] = LAYOUT(_______, _______, _______, _______, _______,   _______, _______, _______, _______, SE_ARNG,
                     _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
-                    _______, _______, _______, _______, _______,   _______, _______, _______, SE_ODIA, SE_ADIA,
-                    _______, _______,                               _______, _______),    
+                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, SE_ADIA,
+                    _______, _______,                               SE_ODIA, _______),    
     [_SYM] = LAYOUT(KC_ESC,  SE_AT,   SE_HASH, SE_DLR,  SE_PERC,    MY_CIRC, SE_AMPR, SE_ASTR, US_SCLN, KC_BSPC,
                     KC_TAB,  _______, _______, _______, _______,    SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
                     MY_TILD, _______, _______, _______, _______,    SE_LBRC, SE_LPRN, SE_RPRN, SE_RBRC, LT_NAV,
