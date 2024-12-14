@@ -25,8 +25,6 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
         }
 
         if (custom_key.keycode == 0) return true;
-
-        uprintf("Found: 0x%04X\n", keycode);
         const uint8_t saved_mods = get_mods();
 #ifndef NO_ACTION_ONESHOT
         const uint8_t mods = saved_mods | get_weak_mods() | get_oneshot_mods();
@@ -41,6 +39,7 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
             if (IS_QK_MODS(registered_keycode) &&  // Should key be shifted?
                 (QK_MODS_GET_MODS(registered_keycode) & MOD_LSFT) != 0) {
                 register_code16(registered_keycode);  // If so, press directly.
+                print("shifted\n");
             } else {
                 // If not, cancel shift mods, press the key, and restore mods.
                 del_weak_mods(MOD_MASK_SHIFT);
@@ -49,7 +48,8 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
 #endif  // NO_ACTION_ONESHOT
                 unregister_mods(MOD_MASK_SHIFT);
                 register_code16(registered_keycode);
-                set_mods(mods);
+                set_mods(saved_mods);
+                print("unshifted\n");
             }
             return false;            
         }

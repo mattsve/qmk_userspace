@@ -20,8 +20,3 @@ enum my_keycodes {
     LT_NUM,
     LT_NAV
 };
-
-#define TH_SCLN LT(0, US_SCLN)
-#define TH_MINS LT(0, KC_B)
-#define TH_COMM LT(0, KC_C)
-#define TH_SLSH LT(0, US_SLSH)
