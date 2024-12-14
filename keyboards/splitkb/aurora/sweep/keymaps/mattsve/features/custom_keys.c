@@ -2,11 +2,6 @@
 
 bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
     static uint16_t registered_keycode = KC_NO;
-
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif 
-
     // If a custom shift key is registered, then this event is either
     // releasing it or manipulating another key at the same time. Either way,
     // we release the currently registered key.
@@ -15,22 +10,23 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
         registered_keycode = KC_NO;
     }
 
-    custom_key_t custom_key = { 0, 0, 0 };
-    for (int i = 0; i < NUM_CUSTOM_KEYS; ++i) {
-        if (keycode == custom_keys[i].keycode) {
-            custom_key = custom_keys[i];
-            break;
-        }
-    }
-
-    if (custom_key.keycode == 0) return true;
-
     if (record->event.pressed) {  // Press event.
         // Continue default handling if this is a tap-hold key being held.
-        if ((IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) && 
-            record->tap.count == 0) {
-            return true;
+        if ((IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) && record->tap.count == 0) return true;
+
+        custom_key_t custom_key = { 0, 0, 0 };
+        if (IS_QK_MOD_TAP(keycode)) keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+        else if (IS_QK_LAYER_TAP(keycode)) keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+        for (int i = 0; i < NUM_CUSTOM_KEYS; ++i) {
+            if (keycode == custom_keys[i].keycode) {
+                custom_key = custom_keys[i];
+                break;
+            }
         }
+
+        if (custom_key.keycode == 0) return true;
+
+        uprintf("Found: 0x%04X\n", keycode);
         const uint8_t saved_mods = get_mods();
 #ifndef NO_ACTION_ONESHOT
         const uint8_t mods = saved_mods | get_weak_mods() | get_oneshot_mods();

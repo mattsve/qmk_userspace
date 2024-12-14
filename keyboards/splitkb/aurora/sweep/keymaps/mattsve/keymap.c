@@ -14,14 +14,6 @@ void keyboard_pre_init_user(void) {
     gpio_write_pin_high(24);
 }
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  //debug_mouse=true;
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEF] = LAYOUT(SE_Q, SE_W, SE_F, SE_P, SE_B,   SE_J, SE_L, SE_U,    SE_Y,   TH_SCLN,
                     SE_A, SE_R, SE_S, SE_T, SE_G,   SE_M, SE_N, SE_E,    SE_I,   SE_O,
@@ -51,7 +43,8 @@ void change_layer(uint16_t layer) {
 }
 
 const custom_key_t custom_keys[] = {
-    {US_SLSH, SE_SLSH, SE_QUES}
+    {US_SLSH, SE_SLSH, SE_QUES},
+    {US_SCLN, SE_SCLN, SE_COLN}
 };
 uint8_t NUM_CUSTOM_KEYS = sizeof(custom_keys) / sizeof(custom_key_t);
 
@@ -62,7 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) SEND_STRING("~");
             return false;        
         case TH_SCLN:
-            if (record->tap.count && record->event.pressed) tap_code16(SE_SCLN);
+            if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(SE_COLN);
             return false;
         case TH_MINS:
@@ -75,11 +68,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;        
         case TH_SLSH:
             if (record->tap.count && record->event.pressed) return true;
-            else if (record->event.pressed) {
-                tap_code16(SE_PIPE);
-                return false;
-            }
-            return true;            
+            else if (record->event.pressed) tap_code16(SE_PIPE);
+            return false; 
         case MY_CIRC:
             if (record->event.pressed) SEND_STRING("^");
             return false;
