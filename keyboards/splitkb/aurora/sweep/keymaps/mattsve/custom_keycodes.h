@@ -4,14 +4,16 @@ enum layers {
     _DEF,    
     _SYM,
     _NUM,
-    _NAV
+    _FUN
 };
 
 #define US_SLSH KC_LNG9
-#define US_SCLN KC_LNG8
+#define NUM_ASTR KC_LNG8
 
 enum my_keycodes {
-    MY_TILD = SAFE_RANGE,
-    MY_CIRC    
+    MY_ACUT = SAFE_RANGE,
+    MY_GRV,
+    MY_TILD,
+    MY_CIRC,
 };
 
