@@ -5,7 +5,6 @@
 #include "gpio.h"
 #include "sendstring_swedish.h"
 #include "custom_keycodes.h"
-#include "g/keymap_combo.h"
 #include "features/custom_keys.h"
 
 enum {
@@ -19,32 +18,23 @@ void keyboard_pre_init_user(void) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_DEF] = LAYOUT(SE_Q,           SE_W, SE_F, SE_P, SE_B,   SE_J, SE_L, SE_U,           SE_Y,          US_SCLN,
-                    TD(TD_A_AO_AE), SE_R, SE_S, SE_T, SE_G,   SE_M, SE_N, SE_E,           SE_I,          TD(TD_O_OE),
-                    SE_Z,           SE_X, SE_C, SE_D, SE_V,   SE_K, SE_H, LT(0, SE_COMM), LT(0, SE_DOT), LT(0, US_SLSH),
-                    KC_SPC, OSM(MOD_LSFT),          OSM(MOD_RCTL), LT_SYM),
-    [_SWE] = LAYOUT(_______, _______, _______, _______, _______,   _______, _______, _______, _______, SE_ARNG,
-                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
-                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, SE_ADIA,
-                    _______, _______,                               SE_ODIA, _______),    
+    [_DEF] = LAYOUT(SE_Q,           SE_W, SE_F,        SE_P,        SE_B,  SE_J, SE_L,        SE_U,           SE_Y,          US_SCLN,
+                    TD(TD_A_AO_AE), SE_R, GUI_T(SE_S), ALT_T(SE_T), SE_G,  SE_M, ALT_T(SE_N), GUI_T(SE_E),    SE_I,          TD(TD_O_OE),
+                    SE_Z,           SE_X, SE_C,        SE_D,        SE_V,  SE_K, SE_H,        LT(0, SE_COMM), LT(0, SE_DOT), LT(0, US_SLSH),
+                    MEH_T(KC_SPC), OSM(MOD_LSFT),          OSM(MOD_RCTL), TO(_SYM)),
     [_SYM] = LAYOUT(KC_ESC,  SE_AT,   SE_HASH, SE_DLR,  SE_PERC,    MY_CIRC, SE_AMPR, SE_ASTR, US_SCLN, KC_BSPC,
-                    KC_TAB,  _______, _______, _______, _______,    SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
-                    MY_TILD, _______, _______, _______, _______,    SE_LBRC, SE_LPRN, SE_RPRN, SE_RBRC, LT_NAV,
-                    LT_DEF, OSM(MOD_LSFT),                           OSM(MOD_LALT), LT_NUM),
+                    KC_TAB,  SE_EQL,  _______, _______, _______,    SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
+                    MY_TILD, _______, _______, _______, _______,    SE_LBRC, SE_LPRN, SE_RPRN, SE_RBRC, TO(_NAV),
+                    TO(_DEF), OSM(MOD_LSFT),                           OSM(MOD_LALT), TO(_NUM)),
     [_NUM] = LAYOUT(KC_ESC,  _______, _______, SE_ASTR, SE_SLSH,    SE_MINS, SE_7, SE_8, SE_9, KC_BSPC,
                     KC_TAB,  _______, _______, _______, SE_PLUS,    SE_EQL,  SE_4, SE_5, SE_6, KC_ENT,
-                    QK_BOOT, _______, _______, _______, SE_COMM,    SE_0,    SE_1, SE_2, SE_3, LT_NAV,
-                    LT_DEF, _______,                                OSM(MOD_LALT), LT_SYM),
+                    QK_BOOT, _______, _______, _______, SE_COMM,    SE_0,    SE_1, SE_2, SE_3, TO(_NAV),
+                    TO(_DEF), _______,                                OSM(MOD_LALT), TO(_SYM)),
     [_NAV] = LAYOUT(_______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
-                    LT_DEF, _______,                               _______, LT_SYM),
+                    TO(_DEF), _______,                               _______, TO(_SYM)),
 };
-
-void change_layer(uint16_t layer) {
-    layer_on(layer);
-    layer_and(1 << _DEF | 1 << _SWE | 1 << layer);
-}
 
 const custom_key_t custom_keys[] = {
     {US_SLSH, SE_SLSH, SE_QUES},
@@ -86,19 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false; 
         case MY_CIRC:
             if (record->event.pressed) SEND_STRING("^");
-            return false;
-        case TG_SWE:
-            if (record->event.pressed) layer_invert(_SWE);            
-            return false;
-        case LT_DEF:
-            change_layer(_DEF);
-            return false;
-        case LT_SYM:
-            change_layer(_SYM);
-            return false;
-        case LT_NUM:
-            change_layer(_NUM);
-            return false;
+            return false;        
     }
     return true;
 }

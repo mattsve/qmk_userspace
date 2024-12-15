@@ -1,8 +1,7 @@
 #pragma once
 
 enum layers {
-    _DEF,
-    _SWE,
+    _DEF,    
     _SYM,
     _NUM,
     _NAV
@@ -13,11 +12,6 @@ enum layers {
 
 enum my_keycodes {
     MY_TILD = SAFE_RANGE,
-    MY_CIRC,
-    TG_SWE,
-    LT_DEF,
-    LT_SYM,
-    LT_NUM,
-    LT_NAV
+    MY_CIRC    
 };
 
