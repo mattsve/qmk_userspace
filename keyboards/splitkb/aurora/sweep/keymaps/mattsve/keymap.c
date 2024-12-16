@@ -22,14 +22,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     TD(TD_A_AO_AE), SE_R, GUI_T(SE_S), ALT_T(SE_T), SE_G,   SE_M, ALT_T(SE_N), GUI_T(SE_E),    SE_I,          TD(TD_O_OE),
                     SE_Z,           SE_X, SE_C,        SE_D,        SE_V,   SE_K, SE_H,        LT(0, SE_COMM), LT(0, SE_DOT), LT(0, US_SLSH),
                     MEH_T(KC_SPC), OSM(MOD_LSFT),                           OSM(MOD_RCTL), TO(_SYM)),
+
     [_SYM] = LAYOUT(KC_ESC,  SE_AT,   SE_HASH, SE_DLR,  SE_PERC,    MY_CIRC, SE_AMPR, SE_ASTR, SE_SCLN, KC_BSPC,
-                    KC_TAB,  SE_EQL,  MY_ACUT, MY_GRV, SE_QUOT,     SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
+                    KC_TAB,  SE_EQL,  MY_ACUT, MY_GRV,  SE_QUOT,    SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
                     MY_TILD, SE_EURO, SE_LABK, SE_RABK, SE_MINS,    SE_LBRC, SE_LPRN, SE_RPRN, SE_RBRC, TO(_FUN),
                     TO(_DEF), _______,                              OSM(MOD_LALT), TO(_NUM)),
-    [_NUM] = LAYOUT(KC_ESC,  _______, _______, _______, LT(0, NUM_ASTR),    SE_EQL,  SE_7, SE_8, SE_9, KC_BSPC,
-                    KC_TAB,  _______, _______, _______, SE_PLUS,            SE_COMM, SE_4, SE_5, SE_6, KC_ENT,
-                    QK_BOOT, _______, _______, _______, SE_MINS,            SE_0,    SE_1, SE_2, SE_3, TO(_FUN),
+
+    [_NUM] = LAYOUT(KC_ESC,  KC_HOME, KC_UP,   KC_PGUP, LT(0, NUM_ASTR),    SE_EQL,          SE_7, SE_8, SE_9, KC_BSPC,
+                    KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, SE_PLUS,            LT(0, NUM_COMM), SE_4, SE_5, SE_6, KC_ENT,
+                    QK_BOOT, KC_END,  KC_APP,  KC_PGDN, SE_MINS,            SE_0,            SE_1, SE_2, SE_3, TO(_FUN),
                     TO(_DEF), _______,                                      OSM(MOD_LALT), TO(_SYM)),
+                    
     [_FUN] = LAYOUT(_______, _______, _______, _______, _______,   KC_F12, KC_F7, KC_F8, KC_F9, KC_BSPC,
                     _______, _______, _______, _______, _______,   KC_F11, KC_F4, KC_F5, KC_F6, KC_ENT,
                     _______, _______, _______, _______, _______,   KC_F10, KC_F1, KC_F2, KC_F3, _______,
@@ -88,6 +91,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LT(0, NUM_ASTR):
             if (record->tap.count && record->event.pressed) tap_code16(SE_ASTR);
             else if (record->event.pressed) tap_code16(SE_SLSH);
+            return false; 
+        case LT(0, NUM_COMM):
+            if (record->tap.count && record->event.pressed) tap_code16(SE_COMM);
+            else if (record->event.pressed) tap_code16(SE_DOT);
             return false; 
     }
     return true;

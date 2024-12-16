@@ -9,6 +9,7 @@ enum layers {
 
 #define US_SLSH KC_LNG9
 #define NUM_ASTR KC_LNG8
+#define NUM_COMM KC_LNG7
 
 enum my_keycodes {
     MY_ACUT = SAFE_RANGE,
