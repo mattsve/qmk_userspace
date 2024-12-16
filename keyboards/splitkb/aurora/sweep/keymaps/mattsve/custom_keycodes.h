@@ -1,10 +1,11 @@
 #pragma once
 
 enum layers {
-    _DEF,    
+    _DEF,
+    _NAV
     _SYM,
+    _FUN,
     _NUM,
-    _FUN
 };
 
 #define US_SLSH KC_LNG9
