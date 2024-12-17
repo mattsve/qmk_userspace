@@ -7,11 +7,13 @@
 #include "custom_keycodes.h"
 #include "features/custom_keys.h"
 
-https://github.com/anarion80/sweep_qmk?tab=readme-ov-file
+// Inspiration
+// https://github.com/anarion80/sweep_qmk?tab=readme-ov-file
 
 enum {
     TD_A_AO_AE,
-    TD_O_OE
+    TD_O_OE,
+    TD_CURR,
 };
 
 void keyboard_pre_init_user(void) {
@@ -21,35 +23,32 @@ void keyboard_pre_init_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEF] = LAYOUT(
-        SE_Q,           SE_W, SE_F,        SE_P,        SE_B,   SE_J, SE_L,        SE_U,           SE_Y,          SE_SCLN,
-        TD(TD_A_AO_AE), SE_R, GUI_T(SE_S), ALT_T(SE_T), SE_G,   SE_M, ALT_T(SE_N), GUI_T(SE_E),    SE_I,          TD(TD_O_OE),
-        SE_Z,           SE_X, SE_C,        SE_D,        SE_V,   SE_K, SE_H,        LT(0, SE_COMM), LT(0, SE_DOT), LT(0, US_SLSH),
-        MEH_T(KC_SPC), OSM(MOD_LSFT),                           OSM(MOD_RCTL), TO(_NAV)),
-
-    [_NAV] = LAYOUT(
-        KC_ESC,        MS_WHLL, MS_UP,   MS_WHLR, KC_PGUP,          C(S(KC_TAB)), A(KC_LEFT),     KC_UP,   A(KC_RGHT),    KC_BSPC
-        LT(0, KC_TAB), MS_LEFT, MS_DOWN, MS_RGHT, LT(0, KC_DEL),    C(KC_TAB),    KC_LEFT,        KC_DOWN, KC_RGHT,       KC_ENT
-        OSM(MOD_LCTL), MS_WHLU, MS_WHLD, MS_BTN2, KC_PGDN,          TH_BTN1,      LT(0, KC_HOME), KC_INS,  LT(0, KC_END), TO(_FUN)
-        TO(_DEF), OSM(MOD_LSFT),                                    OSM(MOD_LCTL), TO(_SYM)), 
-
-    [_SYM] = LAYOUT(
-        KC_ESC, 
-        KC_TAB,
-        MY_TILD,
+        SE_Q,           SE_W, SE_F,        SE_P,        SE_B,   SE_J, SE_L,        SE_U,        SE_Y,     SE_SCLN,
+        TD(TD_A_AO_AE), SE_R, GUI_T(SE_S), ALT_T(SE_T), SE_G,   SE_M, ALT_T(SE_N), GUI_T(SE_E), SE_I,     TD(TD_O_OE),
+        SE_Z,           SE_X, SE_C,        SE_D,        SE_V,   SE_K, SE_H,        TH_COMMI,    TH_DOTEX, TH_SLHPI,
+                                 MEH_T(KC_SPC), OSM(MOD_LSFT),  OSM(MOD_RCTL), TO(_NAV)
     ),
 
-    [_SYM] = LAYOUT(KC_ESC,  SE_AT,   SE_HASH, SE_DLR,  SE_PERC,    MY_CIRC, SE_AMPR, SE_ASTR, SE_SCLN, KC_BSPC,
-                    KC_TAB,  SE_EQL,  MY_ACUT, MY_GRV, SE_QUOT,     SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
-                    MY_TILD, SE_EURO, SE_LABK, SE_RABK, SE_MINS,    SE_LBRC, SE_LPRN, SE_RPRN, SE_RBRC, TO(_FUN),
-                    TO(_DEF), _______,                              OSM(MOD_LALT), TO(_NUM)),
-    [_NUM] = LAYOUT(KC_ESC,  _______, _______, _______, LT(0, NUM_ASTR),    SE_EQL,  SE_7, SE_8, SE_9, KC_BSPC,
-                    KC_TAB,  _______, _______, _______, SE_PLUS,            SE_COMM, SE_4, SE_5, SE_6, KC_ENT,
-                    QK_BOOT, _______, _______, _______, SE_MINS,            SE_0,    SE_1, SE_2, SE_3, TO(_FUN),
-                    TO(_DEF), _______,                                      OSM(MOD_LALT), TO(_SYM)),
-    [_FUN] = LAYOUT(_______, _______, _______, _______, _______,   KC_F12, KC_F7, KC_F8, KC_F9, KC_BSPC,
-                    _______, _______, _______, _______, _______,   KC_F11, KC_F4, KC_F5, KC_F6, KC_ENT,
-                    _______, _______, _______, _______, _______,   KC_F10, KC_F1, KC_F2, KC_F3, _______,
-                    TO(_DEF), _______,                             _______, TO(_SYM)),
+    [_NAV] = LAYOUT(
+        KC_ESC,        MS_WHLL, MS_UP,   MS_WHLR, KC_PGUP,      C(S(KC_TAB)), A(KC_LEFT), KC_UP,   A(KC_RGHT), KC_BSPC,
+        TH_TABGU,      MS_LEFT, MS_DOWN, MS_RGHT, TH_DELAP,     C(KC_TAB),    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_ENT,
+        OSM(MOD_LCTL), MS_WHLU, MS_WHLD, MS_BTN2, KC_PGDN,      TH_BTN1,      TH_HOMCT,   KC_INS,  TH_ENDCT,   TO(_FUN),
+                                   TO(_DEF), OSM(MOD_LSFT),     OSM(MOD_LCTL), TO(_SYM)
+    ),
+
+    [_SYM] = LAYOUT(
+        KC_ESC,  MY_ACUT, MY_GRV,  SE_QUOT, TD(TD_CURR),    SE_EQL,  SE_7, SE_8, SE_9, KC_BSPC,
+        KC_TAB,  TH_BRC,  TH_CBR,  TH_PRN,  TH_PLUMI,       SE_COMM, SE_4, SE_5, SE_6, KC_ENT,
+        TH_TICI, SE_AT,   SE_HASH, SE_BSLS, TH_ASTSL,       KC_0,    SE_1, SE_2, SE_3, KC_DEL,
+                                TO(_DEF), OSM(MOD_LSFT),    OSM(MOD_LALT), OSM(MOD_RCTL)
+    ),
+
+    [_FUN] = LAYOUT(
+        KC_ESC,  KC_MPLY, KC_MPRV, KC_MNXT, TH_SCPS,    KC_F12, KC_F7, KC_F8, KC_F9, KC_BSPC,
+        KC_TAB,  KC_MUTE, KC_VOLD, KC_VOLU, KC_PAUS,    KC_F11, KC_F4, KC_F5, KC_F6, KC_ENT,
+        KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,    KC_F10, KC_F1, KC_F2, KC_F3, KC_DEL,
+                            TO(_DEF), OSM(MOD_LSFT),    OSM(MOD_LALT), OSM(MOD_RCTL)
+    ),    
 };
 
 const custom_key_t custom_keys[] = {
@@ -63,37 +62,44 @@ const custom_key_t custom_keys[] = {
 uint8_t NUM_CUSTOM_KEYS = sizeof(custom_keys) / sizeof(custom_key_t);
 
 void dance_a_ao_ae(tap_dance_state_t *state, void *user_data) {
-        if (state->count == 1) tap_code16(SE_A);
-        if (state->count == 2) tap_code16(SE_ARNG);
-        if (state->count == 3) tap_code16(SE_ADIA);
+    if (state->count == 1) tap_code16(SE_A);
+    if (state->count == 2) tap_code16(SE_ARNG);
+    if (state->count == 3) tap_code16(SE_ADIA);
+}
+
+void dance_curr(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) tap_code16(SE_DLR);
+    if (state->count == 2) tap_code16(SE_EURO);
+    if (state->count == 3) tap_code16(SE_PND);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_A_AO_AE] = ACTION_TAP_DANCE_FN(dance_a_ao_ae),
     [TD_O_OE] = ACTION_TAP_DANCE_DOUBLE(SE_O, SE_ODIA),
+    [TD_CURR] = ACTION_TAP_DANCE_FN(dance_curr),
 };
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_custom_keys(keycode, record)) return false;
     switch (keycode) {
-        case LT(0, SE_COMM):
+        case TH_COMMI:
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(SE_MINS);
             return false; 
-        case LT(0, SE_DOT):
+        case TH_DOTEX:
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(SE_EXLM);
             return false; 
-        case LT(0, US_SLSH):
+        case TH_SLHPI:
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(SE_PIPE);            
             return false; 
-        case LT(0, KC_TAB):
+        case TH_TABGU:
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(LGUI(KC_TAB));            
             return false; 
-        case LT(0, KC_DEL):
+        case TH_DELAP:
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(KC_APP);
             return false; 
@@ -101,31 +107,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->tap.count && record->event.pressed) tap_code16(MS_BTN1);
             else if (record->event.pressed) tap_code16(MS_BTN2);
             return false; 
-        case LT(0, KC_Home):
+        case TH_HOMCT:
             if (record->tap.count && record->event.pressed) return true;
-            else if (record->event.pressed) tap_code16(C(KC_Home));
+            else if (record->event.pressed) tap_code16(C(KC_HOME));
             return false; 
-        case LT(0, KC_End):
+        case TH_ENDCT:
             if (record->tap.count && record->event.pressed) return true;
-            else if (record->event.pressed) tap_code16(C(KC_End));
+            else if (record->event.pressed) tap_code16(C(KC_END));
+            return false;         
+        case TH_PLUMI:
+            if (record->tap.count && record->event.pressed) return true;
+            else if (record->event.pressed) tap_code16(SE_MINS);
             return false; 
-        case MY_TILD:
-            if (record->event.pressed) SEND_STRING("~");
-            return false;
-
+        case TH_TICI:
+            if (record->tap.count && record->event.pressed) SEND_STRING("~");
+            else if (record->event.pressed) SEND_STRING("^");
+            return false; 
+        case TH_ASTSL:
+            if (record->tap.count && record->event.pressed) tap_code16(SE_ASTR);
+            else if (record->event.pressed) tap_code16(US_SLSH);
+            return false; 
+        case TH_BRC:
+            if (record->tap.count && record->event.pressed) tap_code16(SE_LBRC);
+            else if (record->event.pressed) tap_code16(SE_RBRC);
+            return false; 
+        case TH_CBR:
+            if (record->tap.count && record->event.pressed) tap_code16(SE_LCBR);
+            else if (record->event.pressed) tap_code16(SE_RCBR);
+            return false; 
+        case TH_PRN:
+            if (record->tap.count && record->event.pressed) tap_code16(SE_LPRN);
+            else if (record->event.pressed) tap_code16(SE_RPRN);
+            return false; 
         case MY_ACUT:
             if (record->event.pressed) SEND_STRING("´");
             return false;
         case MY_GRV:
             if (record->event.pressed) SEND_STRING("`");
-            return false;    
-        case MY_CIRC:
-            if (record->event.pressed) SEND_STRING("^");
             return false;
-        case LT(0, NUM_ASTR):
-            if (record->tap.count && record->event.pressed) tap_code16(SE_ASTR);
-            else if (record->event.pressed) tap_code16(SE_SLSH);
-            return false; 
+        case TH_SCPS:
+            if (record->tap.count && record->event.pressed)  tap_code16(KC_SCRL);
+            else if (record->event.pressed) tap_code16(KC_PSCR);
     }
     return true;
 }
