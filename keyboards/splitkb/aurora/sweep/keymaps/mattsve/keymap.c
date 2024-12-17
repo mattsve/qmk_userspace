@@ -24,12 +24,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SE_Q,           SE_W, SE_F,        SE_P,        SE_B,   SE_J, SE_L,        SE_U,           SE_Y,          SE_SCLN,
         TD(TD_A_AO_AE), SE_R, GUI_T(SE_S), ALT_T(SE_T), SE_G,   SE_M, ALT_T(SE_N), GUI_T(SE_E),    SE_I,          TD(TD_O_OE),
         SE_Z,           SE_X, SE_C,        SE_D,        SE_V,   SE_K, SE_H,        LT(0, SE_COMM), LT(0, SE_DOT), LT(0, US_SLSH),
-        MEH_T(KC_SPC), OSM(MOD_LSFT),                           OSM(MOD_RCTL), TO(_SYM)),
+        MEH_T(KC_SPC), OSM(MOD_LSFT),                           OSM(MOD_RCTL), TO(_NAV)),
 
     [_NAV] = LAYOUT(
-        KC_ESC, 
+        KC_ESC,        MS_WHLL, MS_UP,   MS_WHLR, KC_PGUP,          C(S(KC_TAB)), A(KC_LEFT),     KC_UP,   A(KC_RGHT),    KC_BSPC
+        LT(0, KC_TAB), MS_LEFT, MS_DOWN, MS_RGHT, LT(0, KC_DEL),    C(KC_TAB),    KC_LEFT,        KC_DOWN, KC_RGHT,       KC_ENT
+        OSM(MOD_LCTL), MS_WHLU, MS_WHLD, MS_BTN2, KC_PGDN,          TH_BTN1,      LT(0, KC_HOME), KC_INS,  LT(0, KC_END), TO(_FUN)
+        TO(_DEF), OSM(MOD_LSFT),                                    OSM(MOD_LCTL), TO(_SYM)), 
 
-            ),
+    [_SYM] = LAYOUT(
+        KC_ESC, 
+        KC_TAB,
+        MY_TILD,
+    ),
 
     [_SYM] = LAYOUT(KC_ESC,  SE_AT,   SE_HASH, SE_DLR,  SE_PERC,    MY_CIRC, SE_AMPR, SE_ASTR, SE_SCLN, KC_BSPC,
                     KC_TAB,  SE_EQL,  MY_ACUT, MY_GRV, SE_QUOT,     SE_BSLS, SE_LCBR, SE_RCBR, SE_PIPE, KC_ENT,
@@ -70,18 +77,6 @@ tap_dance_action_t tap_dance_actions[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_custom_keys(keycode, record)) return false;
     switch (keycode) {
-        case MY_ACUT:
-            if (record->event.pressed) SEND_STRING("´");
-            return false;
-        case MY_GRV:
-            if (record->event.pressed) SEND_STRING("`");
-            return false;    
-        case MY_TILD:
-            if (record->event.pressed) SEND_STRING("~");
-            return false;
-        case MY_CIRC:
-            if (record->event.pressed) SEND_STRING("^");
-            return false;
         case LT(0, SE_COMM):
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(SE_MINS);
@@ -94,6 +89,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->tap.count && record->event.pressed) return true;
             else if (record->event.pressed) tap_code16(SE_PIPE);            
             return false; 
+        case LT(0, KC_TAB):
+            if (record->tap.count && record->event.pressed) return true;
+            else if (record->event.pressed) tap_code16(LGUI(KC_TAB));            
+            return false; 
+        case LT(0, KC_DEL):
+            if (record->tap.count && record->event.pressed) return true;
+            else if (record->event.pressed) tap_code16(KC_APP);
+            return false; 
+        case TH_BTN1:
+            if (record->tap.count && record->event.pressed) tap_code16(MS_BTN1);
+            else if (record->event.pressed) tap_code16(MS_BTN2);
+            return false; 
+        case LT(0, KC_Home):
+            if (record->tap.count && record->event.pressed) return true;
+            else if (record->event.pressed) tap_code16(C(KC_Home));
+            return false; 
+        case LT(0, KC_End):
+            if (record->tap.count && record->event.pressed) return true;
+            else if (record->event.pressed) tap_code16(C(KC_End));
+            return false; 
+        case MY_TILD:
+            if (record->event.pressed) SEND_STRING("~");
+            return false;
+
+        case MY_ACUT:
+            if (record->event.pressed) SEND_STRING("´");
+            return false;
+        case MY_GRV:
+            if (record->event.pressed) SEND_STRING("`");
+            return false;    
+        case MY_CIRC:
+            if (record->event.pressed) SEND_STRING("^");
+            return false;
         case LT(0, NUM_ASTR):
             if (record->tap.count && record->event.pressed) tap_code16(SE_ASTR);
             else if (record->event.pressed) tap_code16(SE_SLSH);
