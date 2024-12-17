@@ -23,6 +23,7 @@ parse_config:
     TH_ASTSL: {"t": "*", "h": "/"}
     TH_HOMCT: {"t": "HOME", "h": "Ctl+ HOME"}
     TH_SCPS: {"t": "SCRL", "h": "PSCR"}
+    TH_CODO: {"t": ",", "h": "."}
     TH_BTN1: {"t": "BTN1", "h": "BTN3"}
     MS_BTN2: BTN2
     ACUT: '´'

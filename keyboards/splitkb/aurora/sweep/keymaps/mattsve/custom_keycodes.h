@@ -30,3 +30,4 @@ enum my_keycodes {
 #define TH_PRN   LT(0, KC_F20)
 #define TH_TICI  LT(0, KC_F19)
 #define TH_SCPS  LT(0, KC_SCRL)
+#define TH_CODO  LT(0, KC_F18)

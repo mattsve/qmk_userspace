@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYM] = LAYOUT(
         KC_ESC,  MY_ACUT, MY_GRV,  SE_QUOT, TD(TD_CURR),    SE_EQL,  SE_7, SE_8, SE_9, KC_BSPC,
-        KC_TAB,  TH_BRC,  TH_CBR,  TH_PRN,  TH_PLUMI,       SE_COMM, SE_4, SE_5, SE_6, KC_ENT,
+        KC_TAB,  TH_BRC,  TH_CBR,  TH_PRN,  TH_PLUMI,       TH_CODO, SE_4, SE_5, SE_6, KC_ENT,
         TH_TICI, SE_AT,   SE_HASH, SE_BSLS, TH_ASTSL,       KC_0,    SE_1, SE_2, SE_3, KC_DEL,
                                 TO(_DEF), OSM(MOD_LSFT),    OSM(MOD_LALT), OSM(MOD_RCTL)
     ),
@@ -148,6 +148,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TH_SCPS:
             if (record->tap.count && record->event.pressed)  tap_code16(KC_SCRL);
             else if (record->event.pressed) tap_code16(KC_PSCR);
+            return false;
+        case TH_CODO:
+            if (record->tap.count && record->event.pressed)  tap_code16(SE_COMM);
+            else if (record->event.pressed) tap_code16(SE_DOT);
+            return false;
     }
     return true;
 }
