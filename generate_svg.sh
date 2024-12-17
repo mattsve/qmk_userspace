@@ -1,0 +1,1 @@
+qmk c2json --no-cpp keyboards/splitkb/aurora/sweep/keymaps/mattsve/keymap.c | keymap -c .keymap_config.yaml parse -c 10 -q - --layer-names DEF NAV SYM FUN | sed "s/splitkb\/aurora/ferris/" | sed "s/LAYOUT/LAYOUT_split_3x5_2/" | sed -E "s/TO\(\ (.+)\)/\1/g" | keymap draw - > keyboards/splitkb/aurora/sweep/keymaps/mattsve/keymap.svg

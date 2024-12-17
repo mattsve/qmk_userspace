@@ -1,0 +1,115 @@
+parse_config:
+  qmk_remove_keycode_prefix:
+  - KC_
+  - SE_
+  - MY_
+  raw_binding_map:
+    TD(TD_A_AO_AE): A
+    TD(TD_O_OE): O
+    TD(TD_CURR): $
+  qmk_keycode_map:
+    TH_COMMI: {"t": ",", "h": "-"}
+    TH_DOTEX: {"t": ".", "h": "!"}
+    TH_SLHPI: {"t": "/", "h": "|"}
+    TH_TABGU: {"t": "TAB", "h": "WIN+ TAB"}
+    TH_DELAP: {"t": "DEL", "h": "APP"}
+    TH_HOMECT: {"t": "HOME", "h": "Ctl+ HOME"}
+    TH_ENDCT: {"t": "END", "h": "Ctl+ END"}
+    TH_TICI: {"t": "~", "h": "^"}
+    TH_BRC: {"t": "[", "h": "]"}
+    TH_CBR: {"t": "{", "h": "}"}
+    TH_PRN: {"t": "(", "h": ")"}
+    TH_PLUMI: {"t": "+", "h": "-"}
+    TH_ASTSL: {"t": "*", "h": "/"}
+    TH_HOMCT: {"t": "HOME", "h": "Ctl+ HOME"}
+    TH_SCPS: {"t": "SCRL", "h": "PSCR"}
+    TH_BTN1: {"t": "BTN1", "h": "BTN3"}
+    MS_BTN2: BTN2
+    ACUT: '´'
+    SPC: $$mdi:keyboard-space$$
+    LSFT: $$mdi:apple-keyboard-shift$$
+    RCTL: $$mdi:apple-keyboard-control$$
+    LCTL: $$mdi:apple-keyboard-control$$
+    BSPC: $$mdi:backspace$$
+    ENT: $$mdi:keyboard-return$$
+    MS_UP: $$mdi:arrow-up$$
+    MS_DOWN: $$mdi:arrow-down$$
+    MS_LEFT: $$mdi:arrow-left$$
+    MS_RGHT: $$mdi:arrow-right$$
+    MS_WHLL: $$mdi:pan-left$$
+    MS_WHLR: $$mdi:pan-right$$
+    MS_WHLU: $$mdi:pan-up$$
+    MS_WHLD: $$mdi:pan-down$$
+    MPLY: $$mdi:play-pause$$
+    MPRV: $$mdi:skip-backward$$
+    MNXT: $$mdi:skip-forward$$
+    MUTE: $$mdi:volume-mute$$
+    VOLD: $$mdi:volume-minus$$
+    VOLU: $$mdi:volume-plus$$    
+    XXXXXXX: ''
+    'NO': ''
+    MINUS: '-'
+    MINS: '-'
+    EQUAL: '='
+    EQL: '='
+    LEFT_BRACKET: '['
+    LBRC: '['
+    RIGHT_BRACKET: ']'
+    RBRC: ']'
+    BACKSLASH: \
+    BSLS: \
+    NONUS_HASH: '#'
+    NUHS: '#'
+    SEMICOLON: ;
+    SCLN: ;
+    QUOTE: ''''
+    QUOT: ''''
+    GRAVE: '`'
+    GRV: '`'
+    COMMA: ','
+    COMM: ','
+    DOT: .
+    SLASH: /
+    SLSH: /
+    TILDE: '~'
+    TILD: '~'
+    EXCLAIM: '!'
+    EXLM: '!'
+    AT: '@'
+    HASH: '#'
+    DOLLAR: $
+    DLR: $
+    PERCENT: '%'
+    PERC: '%'
+    CIRCUMFLEX: ^
+    CIRC: ^
+    AMPERSAND: '&'
+    AMPR: '&'
+    ASTERISK: '*'
+    ASTR: '*'
+    LEFT_PAREN: (
+    LPRN: (
+    RIGHT_PAREN: )
+    RPRN: )
+    UNDERSCORE: _
+    UNDS: _
+    PLUS: +
+    LEFT_CURLY_BRACE: '{'
+    LCBR: '{'
+    RIGHT_CURLY_BRACE: '}'
+    RCBR: '}'
+    PIPE: '|'
+    COLON: ':'
+    COLN: ':'
+    DOUBLE_QUOTE: '"'
+    DQUO: '"'
+    DQT: '"'
+    LEFT_ANGLE_BRACKET: <
+    LABK: <
+    LT: <
+    RIGHT_ANGLE_BRACKET: '>'
+    RABK: '>'
+    GT: '>'
+    QUESTION: '?'
+    QUES: '?'
+  
