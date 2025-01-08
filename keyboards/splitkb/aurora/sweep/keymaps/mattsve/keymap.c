@@ -96,7 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else if (record->event.pressed) tap_code16(SE_PIPE);            
             return false; 
         case TH_TABGU:
-            if (record->tap.count && record->event.pressed) return true;
+            if (record->tap.count && record->event.pressed) tap_code16(KC_TAB);
             else if (record->event.pressed) tap_code16(LGUI(KC_TAB));            
             return false; 
         case TH_DELAP:
